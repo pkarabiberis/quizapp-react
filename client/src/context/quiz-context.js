@@ -3,13 +3,13 @@ import { useQuiz } from '../hooks';
 
 export const QuizContext = createContext();
 export const QuizProvider = ({ children }) => {
-	const [quizzes, setQuizzes] = useQuiz();
+  const { quizzes, setQuizzes } = useQuiz();
 
-	return (
-		<QuizContext.Provider value={{ quizzes, setQuizzes }}>
-			{children}
-		</QuizContext.Provider>
-	);
+  return (
+    <QuizContext.Provider value={{ quizzes, setQuizzes }}>
+      {children}
+    </QuizContext.Provider>
+  );
 };
 
 export const useQuizValue = () => useContext(QuizContext);

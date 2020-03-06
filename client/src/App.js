@@ -6,17 +6,20 @@ import { QuizList } from './components/QuizList';
 import { QuizProvider } from './context';
 import { Header } from './components/layout/Header';
 import { Quiz } from './components/Quiz';
+import { SelectedQuizProvider } from './context/selected-quiz-context';
 
 export const App = () => {
-	return (
-		<QuizProvider>
-			<BrowserRouter>
-				<Header />
-				<div className="App">
-					<Route exact path="/" component={QuizList} />
-					<Route path="/quiz/:id" component={Quiz} />
-				</div>
-			</BrowserRouter>
-		</QuizProvider>
-	);
+  return (
+    <SelectedQuizProvider>
+      <QuizProvider>
+        <BrowserRouter>
+          <Header />
+          <div className="App">
+            <Route exact path="/" component={QuizList} />
+            <Route path="/quiz/:id" component={Quiz} />
+          </div>
+        </BrowserRouter>
+      </QuizProvider>
+    </SelectedQuizProvider>
+  );
 };
