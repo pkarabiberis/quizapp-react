@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { quizDescriptions, quizQuestions } from '../quizData.js';
 
-export const useQuestions = selectedQuiz => {
+export const useQuestions = (selectedQuestion, correct) => {
   const [questions, setQuestions] = useState([]);
+  let quizName = localStorage.getItem('Quiz');
+
   useEffect(() => {
     let selectedQuestions = quizQuestions.filter(
-      question => question.quizId === selectedQuiz
+      question => question.quizName === quizName
     );
-    setQuestions(selectedQuestions);
-  }, [selectedQuiz]);
 
-  return { questions, setQuestions };
+    if (JSON.stringify(selectedQuestions) !== JSON.stringify(questions)) {
+      setQuestions(selectedQuestions);
+    }
+  }, [quizName, selectedQuestion, questions]);
+
+  return { questions };
 };
 
 export const useQuiz = () => {
@@ -23,5 +28,6 @@ export const useQuiz = () => {
       setQuizzes(allQuizzes);
     }
   }, [quizzes]);
+
   return { quizzes, setQuizzes };
 };

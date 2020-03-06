@@ -1,28 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { useQuizValue } from '../context';
+import React, { useEffect } from 'react';
+import { useQuizValue, useSelectedQuizValue } from '../context';
 import { QuizQuestions } from './QuizQuestions';
-import { useSelectedQuizValue } from '../context';
-import { useQuestions } from '../hooks';
 
 export const Quiz = () => {
-  const findQuizByName = name => quizzes.find(quiz => quiz.name === name);
-
-  const { quizzes } = useQuizValue();
-  const { selectedQuiz } = useSelectedQuizValue();
-  const { questions } = useQuestions(selectedQuiz);
-  const [individualQuiz, setIndividualQuiz] = useState([]);
-
-  let quizName = localStorage.getItem('Quiz');
-  let quizByName = findQuizByName(quizName);
+  const { quizzes, quizDispatch } = useQuizValue();
+  const { questions, questionsDispatch } = useSelectedQuizValue();
+  const quizName = localStorage.getItem('Quiz');
 
   useEffect(() => {
-    setIndividualQuiz(quizByName);
-  }, [individualQuiz, quizByName]);
+    const getQuiz = () => {
+      quizDispatch({
+        type: 'GET_INDIVIDUAL_QUIZ',
+        quizName
+      });
+    };
+
+    const getQuestions = () => {
+      questionsDispatch({
+        type: 'GET_QUESTIONS',
+        quizName
+      });
+    };
+
+    getQuiz();
+    getQuestions();
+  }, [quizName, quizDispatch, questionsDispatch]);
 
   return (
     <div className="text-center mt-5">
-      {individualQuiz && <h1>{individualQuiz.name}</h1>}
-      {<QuizQuestions questions={questions} />}
+      {quizzes && <h1>{quizzes.name}</h1>}
+      {questions.map((question, i) => (
+        <QuizQuestions
+          key={question.id}
+          index={i}
+          question={question}
+          answers={question.answers}
+        />
+      ))}
     </div>
   );
 };

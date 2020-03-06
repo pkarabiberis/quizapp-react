@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export const QuizAnswers = ({ answers }) => {
+export const QuizAnswers = ({ answer }) => {
   return (
-    <div>
-      {answers.map((a, i) => (
-        <>
-          <input className="m-3" key={a.id} id="test" type="radio" />
-          <label className="m-1" htmlFor="test">
-            {a.answer}
-          </label>
-        </>
-      ))}
+    <div className="answer__list">
+      <div className="feedback__holder">
+        <p>moro</p>
+      </div>
     </div>
   );
 };

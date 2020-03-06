@@ -1,11 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
+import { questionsReducer } from '../reducers/questionsReducer';
+import { quizQuestions } from '../quizData';
 
 export const SelectedQuizContext = createContext();
 export const SelectedQuizProvider = ({ children }) => {
-  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [questions, questionsDispatch] = useReducer(
+    questionsReducer,
+    quizQuestions
+  );
 
   return (
-    <SelectedQuizContext.Provider value={{ selectedQuiz, setSelectedQuiz }}>
+    <SelectedQuizContext.Provider value={{ questions, questionsDispatch }}>
       {children}
     </SelectedQuizContext.Provider>
   );

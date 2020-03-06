@@ -1,21 +1,23 @@
+const { uuid } = require('uuidv4');
+
 export const quizDescriptions = [
   {
-    id: 1,
+    id: uuid(),
     name: 'Javascript OOP',
     description: 'Questions about Javascript'
   },
   {
-    id: 2,
+    id: uuid(),
     name: 'C# OOP',
     description: 'Questions about C#'
   },
   {
-    id: 3,
+    id: uuid(),
     name: 'C++ OOP',
     description: 'Questions about C++'
   },
   {
-    id: 4,
+    id: uuid(),
     name: 'Python OOP',
     description: 'Questions about Python'
   }
@@ -23,9 +25,10 @@ export const quizDescriptions = [
 
 export const quizQuestions = [
   {
-    id: 1,
+    id: uuid(),
     question: 'What is an array?',
-    quizId: 1,
+    quizName: 'Javascript OOP',
+    feedback: '',
     answers: [
       {
         answer: 'I dont know.',
@@ -42,20 +45,41 @@ export const quizQuestions = [
     ]
   },
   {
-    id: 2,
+    id: uuid(),
     question: 'What is an object?',
-    quizId: 1,
+    quizName: 'Javascript OOP',
+    feedback: '',
     answers: [
       {
         answer: 'Trust me, I dont know.',
         isCorrect: false
       },
       {
-        answer: 'I really dont know.',
+        answer: 'Stop asking shit',
         isCorrect: false
       },
       {
-        answer: 'I actually dont know.',
+        answer: 'I actually really dont know.',
+        isCorrect: true
+      }
+    ]
+  },
+  {
+    id: uuid(),
+    question: 'Is C# a good language?',
+    quizName: 'C# OOP',
+    feedback: '',
+    answers: [
+      {
+        answer: 'Yes',
+        isCorrect: false
+      },
+      {
+        answer: 'No',
+        isCorrect: false
+      },
+      {
+        answer: 'IDK.',
         isCorrect: true
       }
     ]

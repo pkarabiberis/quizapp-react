@@ -2,14 +2,11 @@ import React from 'react';
 import { useQuizValue } from '../context';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useSelectedQuizValue } from '../context';
 
 export const QuizList = () => {
   const { quizzes } = useQuizValue();
-  const { setSelectedQuiz } = useSelectedQuizValue();
 
-  const testeri = (id, name) => {
-    setSelectedQuiz(id);
+  const testeri = name => {
     localStorage.setItem('Quiz', name);
   };
 
@@ -27,7 +24,7 @@ export const QuizList = () => {
                 <Card.Title>{quiz.description}</Card.Title>
                 <Link to={`/quiz/${quiz.id}`}>
                   <Button
-                    onClick={() => testeri(quiz.id, quiz.name)}
+                    onClick={() => testeri(quiz.name)}
                     className="mt-2"
                     variant="outline-secondary"
                   >

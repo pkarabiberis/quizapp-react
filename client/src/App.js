@@ -3,10 +3,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { QuizList } from './components/QuizList';
-import { QuizProvider } from './context';
+import { QuizProvider, SelectedQuizProvider } from './context';
 import { Header } from './components/layout/Header';
 import { Quiz } from './components/Quiz';
-import { SelectedQuizProvider } from './context/selected-quiz-context';
 
 export const App = () => {
   return (
