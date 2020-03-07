@@ -29,18 +29,33 @@ export const quizQuestions = [
     question: 'What is an array?',
     quizName: 'Javascript OOP',
     feedback: '',
+    multipleAnswers: false,
+    attemps: 3,
+    finished: false,
     answers: [
       {
+        id: uuid(),
         answer: 'I dont know.',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'I really dont know.',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'I actually dont know.',
-        isCorrect: true
+        isCorrect: true,
+        checked: false
+      },
+      {
+        id: uuid(),
+        answer: 'I actually donasd know.',
+        isCorrect: false,
+        checked: false
       }
     ]
   },
@@ -49,18 +64,39 @@ export const quizQuestions = [
     question: 'What is an object?',
     quizName: 'Javascript OOP',
     feedback: '',
+    multipleAnswers: true,
+    attemps: 3,
+    finished: false,
     answers: [
       {
+        id: uuid(),
         answer: 'Trust me, I dont know.',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'Stop asking shit',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'I actually really dont know.',
-        isCorrect: true
+        isCorrect: false,
+        checked: false
+      },
+      {
+        id: uuid(),
+        answer: 'TEEST.',
+        isCorrect: true,
+        checked: false
+      },
+      {
+        id: uuid(),
+        answer: 'TEEST2.',
+        isCorrect: true,
+        checked: false
       }
     ]
   },
@@ -69,18 +105,27 @@ export const quizQuestions = [
     question: 'Is C# a good language?',
     quizName: 'C# OOP',
     feedback: '',
+    multipleAnswers: false,
+    attemps: 3,
+    finished: false,
     answers: [
       {
+        id: uuid(),
         answer: 'Yes',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'No',
-        isCorrect: false
+        isCorrect: false,
+        checked: false
       },
       {
+        id: uuid(),
         answer: 'IDK.',
-        isCorrect: true
+        isCorrect: true,
+        checked: false
       }
     ]
   }

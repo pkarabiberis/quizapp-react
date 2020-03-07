@@ -21,7 +21,7 @@ export const Quiz = () => {
         quizName
       });
     };
-
+    document.title = `${quizName} || QuizApp`;
     getQuiz();
     getQuestions();
   }, [quizName, quizDispatch, questionsDispatch]);
