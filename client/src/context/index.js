@@ -4,6 +4,11 @@ import {
   SelectedQuizProvider,
   useSelectedQuizValue
 } from './selected-quiz-context';
+import {
+  ProgressContext,
+  ProgressProvider,
+  useProgressValue
+} from './progress-context';
 
 export {
   QuizContext,
@@ -11,5 +16,8 @@ export {
   useQuizValue,
   SelectedQuizContext,
   SelectedQuizProvider,
-  useSelectedQuizValue
+  useSelectedQuizValue,
+  ProgressContext,
+  ProgressProvider,
+  useProgressValue
 };

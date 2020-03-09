@@ -1,24 +1,72 @@
 import React, { useEffect } from 'react';
-import { useSelectedQuizValue } from '../context';
-
+import { useSelectedQuizValue, useProgressValue } from '../context';
+import { firebase } from '../firebase';
 const { uuid } = require('uuidv4');
 
+// KEEP QUIZ QUESTIONS AS IS; ONLY MODIFY QUIZPROGRESS
 export const QuizAnswers = ({ answers, qIndex }) => {
-  const { questions, questionsDispatch } = useSelectedQuizValue();
-  const findFeedback = (correct, i, answerIndex) => {
-    questionsDispatch({
-      type: 'SET_FEEDBACK',
+  const { questions } = useSelectedQuizValue();
+  const { progress, progressDispatch } = useProgressValue();
+  let quizName = localStorage.getItem('Quiz');
+
+  const findFeedback = (correct, i, answerIndex, id) => {
+    progressDispatch({
+      type: 'UPDATE_PROGRESS',
       correct,
       i,
       answerIndex
     });
+
+    // let userRef = firebase
+    //   .firestore()
+    //   .collection('quizQuestions')
+    //   .doc(id);
+
+    // userRef.get().then(doc => {
+    //   // Mark answer checked
+    //   let answerRef = doc.data().answers;
+    //   let updatedAnswer = answerRef[answerIndex];
+    //   updatedAnswer.checked = true;
+    //   answerRef[answerIndex] = updatedAnswer;
+
+    //   userRef.update({
+    //     answers: answerRef
+    //   });
+
+    //   // Decrement attemps
+    //   let attemps = doc.data().attemps;
+    //   if (attemps > 0) {
+    //     userRef.update({
+    //       attemps: attemps - 1
+    //     });
+    //   }
+    //   // Set feedback
+    //   if (correct) {
+    //     userRef.update({
+    //       feedback: 'Correct!'
+    //     });
+    //   } else {
+    //     userRef.update({
+    //       feedback: 'Not correct'
+    //     });
+    //   }
+    // });
   };
 
   useEffect(() => {
-    questionsDispatch({
-      type: 'FETCH_PROGRESS'
+    let userRef = firebase
+      .firestore()
+      .collection('users')
+      .doc('B86rgfwcmFurCAbWROb9')
+      .collection('quizzes')
+      .doc(quizName);
+
+    // Mark answer checked
+
+    userRef.set({
+      questions: progress
     });
-  });
+  }, [progress, quizName]);
 
   return (
     <div className="answer__list">
@@ -26,11 +74,22 @@ export const QuizAnswers = ({ answers, qIndex }) => {
         <div className="answer-container" key={uuid()}>
           <input
             key={answer.id}
-            type={questions[qIndex].multipleAnswers ? 'checkbox' : 'radio'}
+            type={
+              questions[qIndex].multipleAnswers ||
+              questions[qIndex].multipleAnswers
+                ? 'checkbox'
+                : 'radio'
+            }
             id={answer.answer}
-            onChange={() => findFeedback(answer.isCorrect, qIndex, i)}
+            onChange={() =>
+              findFeedback(answer.isCorrect, qIndex, i, progress[qIndex].id)
+            }
             checked={answer.checked}
-            disabled={answer.checked || questions[qIndex].finished}
+            disabled={
+              answer.checked ||
+              progress[qIndex].finished ||
+              questions[qIndex].finished
+            }
           />
           <label className="btn-holder" key={i} htmlFor={answer.answer}>
             {answer.answer}

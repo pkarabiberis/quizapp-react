@@ -1,10 +1,15 @@
-export const questionsReducer = (state, action) => {
+export const progressReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_QUESTIONS':
+    case 'SET_PROGRESS':
+      console.log('REDUCER', action);
       state = action.questions;
       return state;
 
-    case 'SET_FEEDBACK':
+    case 'FETCH_PROGRESS':
+      state = action.progress;
+      return state;
+
+    case 'UPDATE_PROGRESS':
       let newState = [...state];
       if (action.correct) {
         newState[action.i].feedback = 'Correct';
@@ -64,10 +69,6 @@ export const questionsReducer = (state, action) => {
         }
       }
       return newState;
-
-    case 'FETCH_PROGRESS':
-      return state;
-
     default:
       return state;
   }
