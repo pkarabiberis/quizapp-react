@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelectedQuizValue, useProgressValue } from '../context';
 import { firebase } from '../firebase';
+import { useUserValue } from '../context/user-context';
 const { uuid } = require('uuidv4');
 
 // KEEP QUIZ QUESTIONS AS IS; ONLY MODIFY QUIZPROGRESS
@@ -8,6 +9,8 @@ export const QuizAnswers = ({ answers, qIndex }) => {
   const { questions } = useSelectedQuizValue();
   const { progress, progressDispatch } = useProgressValue();
   let quizName = localStorage.getItem('Quiz');
+  //const { user } = useUserValue();
+  const uid = localStorage.getItem('uid');
 
   const findFeedback = (correct, i, answerIndex, id) => {
     progressDispatch({
@@ -57,7 +60,7 @@ export const QuizAnswers = ({ answers, qIndex }) => {
     let userRef = firebase
       .firestore()
       .collection('users')
-      .doc('B86rgfwcmFurCAbWROb9')
+      .doc(uid)
       .collection('quizzes')
       .doc(quizName);
 
@@ -66,7 +69,7 @@ export const QuizAnswers = ({ answers, qIndex }) => {
     userRef.set({
       questions: progress
     });
-  }, [progress, quizName]);
+  }, [progress, quizName, uid]);
 
   return (
     <div className="answer__list">

@@ -6,13 +6,15 @@ import {
 } from '../context';
 import { QuizQuestions } from './QuizQuestions';
 import { firebase } from '../firebase';
+import { useUserValue } from '../context/user-context';
 
 export const Quiz = () => {
   const { quizzes, quizDispatch } = useQuizValue();
   const { questions, questionsDispatch } = useSelectedQuizValue();
   const { progress, progressDispatch } = useProgressValue();
   const quizName = localStorage.getItem('Quiz');
-  console.log(progress);
+  //const { user } = useUserValue();
+  const uid = localStorage.getItem('uid');
   useEffect(() => {
     // Get quiz from DB
     const getQuiz = () => {
@@ -55,7 +57,7 @@ export const Quiz = () => {
             let userRef = firebase
               .firestore()
               .collection('users')
-              .doc('B86rgfwcmFurCAbWROb9')
+              .doc(uid)
               .collection('quizzes')
               .doc(quizName);
 
@@ -84,7 +86,14 @@ export const Quiz = () => {
     document.title = `${quizName} || QuizApp`;
     getQuiz();
     getQuestions();
-  }, [quizName, quizDispatch, questionsDispatch, questions, progressDispatch]);
+  }, [
+    quizName,
+    quizDispatch,
+    questionsDispatch,
+    questions,
+    progressDispatch,
+    uid
+  ]);
 
   // useEffect(() => {
 
