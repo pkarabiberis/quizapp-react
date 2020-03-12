@@ -7,7 +7,7 @@ export const QuizQuestions = ({ question, answers, index }) => {
     <Container>
       <Row className="justify-content-center mt-5">
         <Col xs={6}>
-          <Card className="mt-2 border-dark" style={{ color: 'white' }}>
+          <Card className="mt-2 border-dark" style={{ color: 'black' }}>
             <Card.Body>
               <Card.Title>{question.question}</Card.Title>
               <span>Attemps left: {question.attemps}</span>

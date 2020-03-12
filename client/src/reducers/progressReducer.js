@@ -3,13 +3,17 @@ export const progressReducer = (state, action) => {
     case 'SET_PROGRESS':
       console.log('REDUCER', action);
       state = action.questions;
-      return state;
+      let newState2 = state;
+      newState2 = action.questions;
+
+      return newState2;
 
     case 'FETCH_PROGRESS':
       state = action.progress;
       return state;
 
     case 'UPDATE_PROGRESS':
+      console.log('moi');
       let newState = [...state];
       if (action.correct) {
         newState[action.i].feedback = 'Correct';

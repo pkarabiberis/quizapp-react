@@ -1,56 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useUserValue } from '../../context/user-context';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { firebase } from '../../firebase';
 
-export const Header = ({ history }) => {
-  const [username, setUsername] = useState('');
-  //const { user } = useUserValue();
-  const uid = localStorage.getItem('uid');
+const Header = props => {
+  const [username, setUsername] = useState(null);
 
-  useEffect(() => {
-    if (uid) {
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      localStorage.setItem('uid', user.uid);
+
       firebase
         .firestore()
         .collection('users')
-        .doc(uid)
+        .doc(user.uid)
         .get()
         .then(doc => {
-          setUsername(doc.data().username);
+          if (doc.exists) {
+            setUsername(doc.data().username);
+          }
         });
     }
-  }, [uid]);
+  });
 
   const logout = () => {
     localStorage.removeItem('uid');
-    window.location.href = 'http://localhost:3000/login';
+    firebase
+      .auth()
+      .signOut()
+
+      .then(() => {
+        props.history.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
-    <>
-      <Navbar bg="#07142f" variant="dark">
-        <Link to={'/quizzes'}>
-          <Navbar.Brand>Home</Navbar.Brand>
-        </Link>
-        {!username.length ? (
-          <>
-            <Link to={'/login'}>
-              <Navbar.Brand>Login</Navbar.Brand>
-            </Link>
-            <Link to={'/register'}>
-              <Navbar.Brand>Register</Navbar.Brand>
-            </Link>
-          </>
-        ) : (
-          <>
-            <p>{username}</p>
-            <p onClick={() => logout()}>Logout</p>
-          </>
-        )}
-
-        <Nav className="mr-auto"></Nav>
-      </Navbar>
-    </>
+    <header className="header">
+      <nav>
+        <div className="logo">
+          <Link to={'/quizzes'}>
+            <img src="/images/logo.png" alt="Todoist" />
+          </Link>
+        </div>
+        <div className="settings">
+          {!username ? (
+            <ul>
+              <li className="settings__add">
+                <Link to={'/login'}>
+                  <p>Log in</p>
+                </Link>
+                <Link to={'/register'}>
+                  <p>Register</p>
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul>
+              <li className="settings__add">
+                <p>{username}</p>
+                <p onClick={() => logout()}>Log out</p>
+              </li>
+            </ul>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 };
+
+export default withRouter(Header);

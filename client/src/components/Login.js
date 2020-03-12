@@ -15,10 +15,6 @@ export const Login = ({ history }) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        firebase.auth().onAuthStateChanged(user => {
-          setUser(user);
-          localStorage.setItem('uid', user.uid);
-        });
         history.push('/');
       })
       .catch(err => {

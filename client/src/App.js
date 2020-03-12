@@ -1,25 +1,25 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { QuizList } from './components/QuizList';
 import {
   QuizProvider,
   SelectedQuizProvider,
-  ProgressProvider
+  ProgressProvider,
+  UserProvider
 } from './context';
-import { Header } from './components/layout/Header';
+import Header from './components/layout/Header';
 import { Quiz } from './components/Quiz';
 import { Register } from './components/Register';
 import { Login } from './components/Login';
-import { UserProvider } from './context/user-context';
 
 export const App = () => {
   return (
-    <UserProvider>
-      <SelectedQuizProvider>
-        <QuizProvider>
-          <ProgressProvider>
+    <ProgressProvider>
+      <UserProvider>
+        <SelectedQuizProvider>
+          <QuizProvider>
             <BrowserRouter>
               <Header />
               <div className="App">
@@ -29,9 +29,9 @@ export const App = () => {
                 <Route path="/login" component={Login} />
               </div>
             </BrowserRouter>
-          </ProgressProvider>
-        </QuizProvider>
-      </SelectedQuizProvider>
-    </UserProvider>
+          </QuizProvider>
+        </SelectedQuizProvider>
+      </UserProvider>
+    </ProgressProvider>
   );
 };

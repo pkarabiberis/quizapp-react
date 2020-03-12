@@ -9,6 +9,7 @@ import {
   ProgressProvider,
   useProgressValue
 } from './progress-context';
+import { UserContext, UserProvider, useUserValue } from './user-context';
 
 export {
   QuizContext,
@@ -19,5 +20,8 @@ export {
   useSelectedQuizValue,
   ProgressContext,
   ProgressProvider,
-  useProgressValue
+  useProgressValue,
+  UserContext,
+  UserProvider,
+  useUserValue
 };

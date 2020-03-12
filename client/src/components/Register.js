@@ -15,6 +15,7 @@ export const Register = ({ history }) => {
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
         const uid = res.user.uid;
+        localStorage.setItem('uid', uid);
         firebase
           .firestore()
           .collection('users')
@@ -23,7 +24,7 @@ export const Register = ({ history }) => {
             username
           })
           .then(() => {
-            history.push('/login');
+            history.push('/quizzes');
           });
       })
       .catch(err => {
